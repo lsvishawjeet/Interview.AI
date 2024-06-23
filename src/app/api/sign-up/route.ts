@@ -8,10 +8,10 @@ export async function POST(request: Request){
     await dbConnect()
 
     try {
-        const {userName, email, password} = await request.json()
+        const {username, email, password} = await request.json()
         const existingVerifiedByUserName = await 
         UserModel.findOne({
-            userName,
+            username,
             isVerified: true
         })
 
@@ -43,7 +43,7 @@ export async function POST(request: Request){
             expiryDate.setHours(expiryDate.getHours() + 1)
 
             const newUser = new UserModel({
-                username: userName,
+                username: username,
                 email : email,
                 password: hashedPassword,
                 verifyCode: verifyCode,
@@ -58,7 +58,7 @@ export async function POST(request: Request){
 
         //send verification email
         const emailResponse =  await sendVerificationEmail(
-            email, userName, verifyCode
+            email, username, verifyCode
         )
         if(!emailResponse.success){
             return Response.json({
