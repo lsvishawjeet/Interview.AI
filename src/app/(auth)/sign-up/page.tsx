@@ -94,81 +94,100 @@ function page() {
   }, [username]);
   return (
     <div className="flex justify-center items-center h-[100vh]">
-      <div className="p-5 w-2/6">
-        <p className=" flex align-middle justify-center m-5 font-semibold text-3xl">
-          AnonyPoll
-        </p>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="daku"
-                      {...field}
-                      onChange={(e) => {
-                        field.onChange(e), debounced(e.target.value);
-                      }}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    <>
-                      {verifyingUserName ? (
-                        <>
-                          <span className="loading loading-dots loading-xs"></span>
-                        </>
-                      ) : (
-                        <span className={`${userNameMessage=="Username is unique" ? 'text-green-500':'text-red-500'}`}>{userNameMessage }</span>
-                      )}
-                    </>
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="anony@email.com" {...field} />
-                  </FormControl>
-                  <FormDescription></FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="password" {...field} />
-                  </FormControl>
-                  <FormDescription></FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">
-              {submitting ? (
-                <>
-                  <span className="loading loading-dots loading-md"></span>
-                </>
-              ) : (
-                "Submit"
-              )}
-            </Button>
-          </form>
-        </Form>
+      <div className="card glass w-96">
+        <div className="card-body">
+        <h1 className="text-3xl font-bold text-center  text-blue-600">AnonyPoll</h1>
+        <h2 className="card-title text-center align-middle justify-center text-lg">Create Account</h2>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="vishawjeet"
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e), debounced(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      <>
+                        {verifyingUserName ? (
+                          <>
+                            <span className="loading loading-dots loading-xs"></span>
+                          </>
+                        ) : (
+                          <span
+                            className={`${
+                              userNameMessage == "Username is unique"
+                                ? "text-green-500"
+                                : "text-red-500"
+                            }`}
+                          >
+                            {userNameMessage}
+                          </span>
+                        )}
+                      </>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="abc@email.com" {...field} />
+                    </FormControl>
+                    <FormDescription></FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription></FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button className="w-[100%]" type="submit">
+                {submitting ? (
+                  <>
+                    <span className="loading loading-dots loading-md"></span>
+                  </>
+                ) : (
+                  "Submit"
+                )}
+              </Button>
+            </form>
+          </Form>
+          <div className="text-center mt-2">
+            <span className="text-gray-600">Already have an account? </span>
+            <a href="/signin" className="text-blue-500 hover:underline">
+              Sign In
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

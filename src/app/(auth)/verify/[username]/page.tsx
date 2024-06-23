@@ -74,7 +74,10 @@ export default function page() {
   }
   return (
     <div className="flex justify-center items-center h-[100vh]">
-        <div>
+    <div className="card glass w-96">
+      <div className="card-body">
+      <h1 className="text-3xl font-bold text-center  text-blue-600">AnonyPoll</h1>
+      <h2 className="card-title text-center align-middle justify-center text-lg">Verify OTP</h2>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -125,7 +128,7 @@ export default function page() {
             )}
           />
 
-          <Button type="submit"> {verifyingOtp ? (
+          <Button className="w-[100%]" type="submit"> {verifyingOtp ? (
                 <>
                   <span className="loading loading-dots loading-md"></span>
                 </>
@@ -134,7 +137,9 @@ export default function page() {
               )}</Button>
         </form>
       </Form>
+        
       </div>
     </div>
+  </div>
   );
 }

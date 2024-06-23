@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
-import { Toaster } from "@/components/ui/toaster"
-
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-
-      <body className={inter.className}>{children}
-      <Toaster />
-
-      </body>
+        <body className={`${inter.className} bg-gradient-to-tl from-slate-300 to-slate-500 via-slate-400 animate-gradient-x`}>
+          {children}
+          <Toaster />
+        </body>
       </AuthProvider>
     </html>
   );
