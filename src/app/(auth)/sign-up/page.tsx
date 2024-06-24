@@ -93,99 +93,108 @@ function page() {
     checkUserUnique();
   }, [username]);
   return (
-    <div className="flex justify-center items-center h-[100vh]">
-      <div className="card glass w-96">
-        <div className="card-body">
-        <h1 className="text-3xl font-bold text-center  text-blue-600">AnonyPoll</h1>
-        <h2 className="card-title text-center align-middle justify-center text-lg">Create Account</h2>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="vishawjeet"
-                        {...field}
-                        onChange={(e) => {
-                          field.onChange(e), debounced(e.target.value);
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      <>
-                        {verifyingUserName ? (
-                          <>
-                            <span className="loading loading-dots loading-xs"></span>
-                          </>
-                        ) : (
-                          <span
-                            className={`${
-                              userNameMessage == "Username is unique"
-                                ? "text-green-500"
-                                : "text-red-500"
-                            }`}
-                          >
-                            {userNameMessage}
-                          </span>
-                        )}
-                      </>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="abc@email.com" {...field} />
-                    </FormControl>
-                    <FormDescription></FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription></FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button className="w-[100%]" type="submit">
-                {submitting ? (
-                  <>
-                    <span className="loading loading-dots loading-md"></span>
-                  </>
-                ) : (
-                  "Submit"
-                )}
-              </Button>
-            </form>
-          </Form>
-          <div className="text-center mt-2">
-            <span className="text-gray-600">Already have an account? </span>
-            <a href="/signin" className="text-blue-500 hover:underline">
-              Sign In
-            </a>
+    <div className="flex justify-center items-center h-[100vh] bg-authBg1 bg-center">
+      <div className=" card bg-authBg bg-cover bg-center md:w-96">
+        <div className="card glass ">
+          <div className="card-body">
+            <h1 className="text-3xl font-bold text-center  text-blue-600">
+              AnonyPoll
+            </h1>
+            <h2 className="card-title text-center align-middle justify-center text-lg">
+              Create Account
+            </h2>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-5"
+              >
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="vishawjeet"
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e), debounced(e.target.value);
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        <>
+                          {verifyingUserName ? (
+                            <>
+                              <span className="loading loading-dots loading-xs"></span>
+                            </>
+                          ) : (
+                            <span
+                              className={`${
+                                userNameMessage == "Username is unique"
+                                  ? "text-green-500"
+                                  : "text-red-500"
+                              }`}
+                            >
+                              {userNameMessage}
+                            </span>
+                          )}
+                        </>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="abc@email.com" {...field} />
+                      </FormControl>
+                      <FormDescription></FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription></FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button className="w-[100%]" type="submit">
+                  {submitting ? (
+                    <>
+                      <span className="loading loading-dots loading-md"></span>
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              </form>
+            </Form>
+            <div className="text-center mt-2">
+              <span className="text-gray-600">Already have an account? </span>
+              <a href="/sign-in" className="text-blue-500 hover:underline">
+                Sign In
+              </a>
+            </div>
           </div>
         </div>
       </div>

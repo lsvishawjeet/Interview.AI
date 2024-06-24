@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        'authBg': "url('/logos/l3.jpeg')",
+        'authBg1': "url('/logos/l6.jpeg')",
+        'authBg2': "url('/logos/l1.jpeg')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -73,7 +73,8 @@ export default function page() {
     }
   }
   return (
-    <div className="flex justify-center items-center h-[100vh]">
+    <div className="flex justify-center items-center h-[100vh] bg-authBg1 bg-center">
+      <div className="w-96 card bg-authBg bg-cover bg-center">
     <div className="card glass w-96">
       <div className="card-body">
       <h1 className="text-3xl font-bold text-center  text-blue-600">AnonyPoll</h1>
@@ -139,6 +140,7 @@ export default function page() {
       </Form>
         
       </div>
+    </div>
     </div>
   </div>
   );
