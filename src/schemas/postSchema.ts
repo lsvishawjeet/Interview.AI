@@ -1,8 +1,8 @@
 import {z} from "zod";
 
 export const postSchema = z.object({
-    content : z
-    .string()
+    content : z.string(),
+    userid: z.string()
 })
 
 export const postCommentSchema = z.object({

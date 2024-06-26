@@ -26,20 +26,17 @@ export default function EmailTemplate({ userName, otp }:EmailTemplateProps){
           If you did not request this code, please ignore this email or contact our support team.
         </p>
         <div className="mt-6">
-          <a href="https://www.example.com/support" className="inline-block bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-500">
+          <a href="" className="inline-block bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-500">
             Contact Support
           </a>
         </div>
       </div>
       <div className="bg-gray-200 p-6 text-center">
         <p className="text-gray-600 text-sm">
-          &copy; 2024 Your Company. All rights reserved.
+          &copy; 2024 Vishawjeet. All rights reserved.
         </p>
         <p className="text-gray-600 text-sm">
-          1234 Your Address St, Your City, Your State, 12345
-        </p>
-        <p className="text-gray-600 text-sm">
-          <a href="https://www.example.com/unsubscribe" className="text-indigo-600 hover:underline">Unsubscribe</a>
+          Bathinda, Punjab, India
         </p>
       </div>
     </div>

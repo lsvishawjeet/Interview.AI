@@ -8,6 +8,10 @@ function Navbar() {
     const {data: session} = useSession()
     const user : User = session?.user as User
     const router = useRouter()
+
+    function logout(){
+         signOut();
+    }
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -16,7 +20,7 @@ function Navbar() {
   </div>
   <div className=' w-[100%]'>
     <h1 className='flex justify-center align-middle items-center w-[100%]'>
-        {session? <span className='font-semibold text-lg'>Welcome {user?.username || user?.email}</span>:<></>}
+        {session? <span className='font-semibold text-lg'>Welcome {user?.username || user?.email}</span>:<><span className="loading loading-ring loading-md"></span></>}
     </h1>
   </div>
   <div className="flex-none gap-2">
@@ -41,7 +45,7 @@ function Navbar() {
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li onClick={()=>signOut()}><a >Logout</a></li>
+        <li onClick={()=>logout()}><a >Logout</a></li>
       </ul>
     </div>
   </div>

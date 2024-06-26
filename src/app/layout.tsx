@@ -22,7 +22,7 @@ export default function RootLayout({
         <body className={`${inter.className}`}>
           {children}
           <Toaster />
-          <div className="absolute bottom-0 right-0 p-1"><span>Link</span></div>
+          <div className="fixed bottom-0 right-0 p-1"><span>Link</span></div>
         </body>
       </AuthProvider>
     </html>
