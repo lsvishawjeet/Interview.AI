@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
     const url = request.nextUrl
 
     if (!token) {
-        if (url.pathname !== '/sign-in' && url.pathname !== '/sign-up') {
+        if (url.pathname !== '/sign-in' && url.pathname !== '/sign-up' && url.pathname !== '/verify') {
             return NextResponse.redirect(new URL('/sign-in', request.url))
         }
     } else {
