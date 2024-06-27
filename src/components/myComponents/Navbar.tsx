@@ -16,7 +16,7 @@ function Navbar() {
     <div className="sticky top-0">
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Interview.AI</a>
+          <a className="btn btn-ghost text-xl">IntervueAI</a>
         </div>
         <div className=" w-[100%]">
           <h1 className="flex justify-center align-middle items-center w-[100%]">
