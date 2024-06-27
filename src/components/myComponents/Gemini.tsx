@@ -1,5 +1,4 @@
 "use client";
-import PostMethod1 from "@/components/myComponents/PostMethod1";
 import React, { useEffect, useState } from "react";
 import {
   GoogleGenerativeAI,
@@ -26,9 +25,8 @@ function Gemini() {
   const [error, setError] = useState<string | null>(null);
   const md = markdownit()
 
-  const apiKey: any = process.env.GEMINI_API_KEY;
-  console.log(`api key: ${apiKey}`)
-  const genAI = apiKey? new GoogleGenerativeAI(apiKey) : new GoogleGenerativeAI("AIzaSyAqg_aswU5s10AKXErhPbwU_Vp8FM545A");
+  const apiKey = "AIzaSyDuHnfldeQNzC-IgXoQTJK27bLw-_xvFQw";
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction:
