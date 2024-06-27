@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { timeStamp } from "console";
 import { Textarea } from "@/components/ui/textarea"
 import markdownit from 'markdown-it';
+import { UserDetailsForm } from "./userDetailsForm";
 
 
 type Message = {
@@ -24,6 +25,7 @@ function Gemini() {
   const [chat, setChat] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const md = markdownit()
+  const takeMeDownRef = useRef<HTMLDivElement>(null)
 
   const apiKey = "AIzaSyDuHnfldeQNzC-IgXoQTJK27bLw-_xvFQw";
   const genAI = new GoogleGenerativeAI(apiKey);
@@ -40,7 +42,7 @@ function Gemini() {
     maxOutputTokens: 8192,
     responseMimeType: "text/plain",
   };
- 
+  
   useEffect(() => {
     const initChat = async () => {
       try {
@@ -58,6 +60,13 @@ function Gemini() {
     };
     initChat();
   }, []);
+  
+  //scroll to down
+  useEffect(()=>{
+    if(takeMeDownRef.current) {
+      takeMeDownRef.current.scrollIntoView()
+    }
+  },[message])
 
   const handleSendButton = async () => {
     try {
@@ -93,10 +102,15 @@ function Gemini() {
   const formatMessage=(msg:string)=>{
     return md.render(msg)
   }
+
+
   return (
-    <div className="h-100vh bg-green-500">
+    <div className="h-100vh">
+      <div>
+      {/* <UserDetailsForm/> */}
+      </div>
       <div className="flex justify-center">
-        <div className="flex flex-col w-[50vw] absolute bottom-0 mb-10  overflow-y-scroll max-h-[80vh] ">
+        <div className="flex flex-col md:w-[50vw] w-[90vw] absolute bottom-0 md:mb-10 mb-4 overflow-y-scroll max-h-[80vh] scrollbar-none ">
           {message.map((msg, index) => (
             <div
               key={index}
@@ -106,12 +120,12 @@ function Gemini() {
                   : "flex justify-end chat chat-end"
               }
             >
-              <div className="md:max-w-[80%] max-w-[90%] mb-5 overflow-wrap p-2 bg-slate-50 text-gray-950">
+              <div className="md:max-w-[80%] max-w-[90%] mb-1 md:mb-5 overflow-wrap p-2 bg-slate-100 rounded-xl text-gray-950">
                 <p className="pb-2" dangerouslySetInnerHTML={{
                     __html: formatMessage(msg.text),
                   }}>
                 </p>
-                <p>
+                <p className="text-sm font-light">
                   {msg.role === "bot" ? "Interviewer" : "You"} -{" "}
                   {msg.timeStamp.toLocaleTimeString()}
                 </p>
@@ -121,16 +135,17 @@ function Gemini() {
           <div>
             {error && <div className="text-red-500 text-sm mb-3">{error}</div>}
           </div>
-          <div className="flex sticky bottom-0 items-center ">
+          <div className="flex sticky bottom-0 items-center">
             <Textarea
               value={userInput}
               onKeyDown={handleKeyPress}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder="Type your message..."
-              className="mr-2 max-h-56 rounded-full p-4 active:no-underline"/>
+              className="mr-2 max-h-56 rounded-lg p-4 active:no-underline"/>
 
             <Button onClick={handleSendButton}>Submit</Button>
           </div>
+          <div ref={takeMeDownRef}></div>
         </div>
       </div>
     </div>

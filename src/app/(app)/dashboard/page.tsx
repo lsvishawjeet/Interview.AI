@@ -4,7 +4,9 @@ import Gemini from "@/components/myComponents/Gemini";
 function page() {
   
   return (
-    <Gemini/>
+    <div className="w-[100vw]">
+      <Gemini/>
+    </div>
   );
 }
 
