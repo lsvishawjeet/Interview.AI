@@ -33,7 +33,7 @@ export default function EmailTemplate({ userName, otp }:EmailTemplateProps){
       </div>
       <div className="bg-gray-200 p-6 text-center">
         <p className="text-gray-600 text-sm">
-          &copy; 2024 Vishawjeet. All rights reserved.
+          &copy; 2024 IntervueAI. All rights reserved.
         </p>
         <p className="text-gray-600 text-sm">
           Bathinda, Punjab, India
