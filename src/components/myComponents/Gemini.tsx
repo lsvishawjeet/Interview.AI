@@ -158,14 +158,15 @@ function Gemini() {
   }
   return (
     <div className="h-100vh ">
-      <div className={isStarted ? "hidden" : "h-[70vh] flex"}>
+      <div className={isStarted ? "hidden" : "h-[90vh] flex"}>
         <div className="w-[100vw] flex justify-center align-middle items-center overflow-scroll scrollbar-none">
           <div className="md:w-[30%] w-[90%] p-5 rounded-xl bg-slate-50">
-            <p className="text-center font-semibold text-lg">Fill Details</p>
+            <p className="text-center font-semibold text-2xl">Start Interview</p>
+            <p className="text-center text-sm mb-3 mt-2">Interview Preparation will start instanty after filling below details</p>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-1"
+                className="space-y-2"
               >
                 <FormField
                   control={form.control}
@@ -232,8 +233,7 @@ function Gemini() {
                     </FormItem>
                   )}
                 />
-
-                <Button type="submit">Start</Button>
+                <Button className="w-[100%]" type="submit">Start</Button>
               </form>
             </Form>
           </div>
