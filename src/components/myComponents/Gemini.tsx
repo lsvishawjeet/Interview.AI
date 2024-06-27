@@ -1,0 +1,142 @@
+"use client";
+import PostMethod1 from "@/components/myComponents/PostMethod1";
+import React, { useEffect, useState } from "react";
+import {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} from "@google/generative-ai";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { timeStamp } from "console";
+import { Textarea } from "@/components/ui/textarea"
+import markdownit from 'markdown-it';
+
+
+type Message = {
+  text: string;
+  role: "user" | "bot";
+  timeStamp: Date;
+};
+
+function Gemini() {
+  const [message, setMessage] = useState<Message[]>([]);
+  const [userInput, setUserInput] = useState("");
+  const [chat, setChat] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+  const md = markdownit()
+
+  const apiKey: any = process.env.GEMINI_API_KEY;
+  console.log(`api key: ${apiKey}`)
+  const genAI = apiKey? new GoogleGenerativeAI(apiKey) : new GoogleGenerativeAI("AIzaSyAqg_aswU5s10AKXErhPbwU_Vp8FM545A");
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    systemInstruction:
+      "This model is for website that hepls users to prepare for their interviews. FIrst ask user about their qualifiaction, company, role he is preparing for and package he is expecting. Take proper interview of user as taken in companies. For instance, for software development role, there are different rounds of interview, aptitude, DSA, etc. So, take interview accordingly. Talk in professional way and expect only the professional output. First describe the user about the steps, and then start taking interview question by question. When user answered it then tell user how he could better handle it. For coding rounds, always ask user prefered programming language, expect code from user and then after getting code from user, you can ask for more optimal solutions and can also suggest users how to solve it with better approach. Also explain user how he can better handle that question. Ask question according to the package he is expecting, and what trend is going in industry. Avoid talking on personal issues of user if it is not relevent to job and role he selected. If user asks out of context queation, give him warning. At end of interview, evalute user and tell him weather he is ready to crack the interview of that company, if not then provide his where he need to focus. If you feel, the response is generated using AI, then immidiatly warn candidate without asking next question ",
+  });
+
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 64,
+    maxOutputTokens: 8192,
+    responseMimeType: "text/plain",
+  };
+ 
+  useEffect(() => {
+    const initChat = async () => {
+      try {
+        const newChat = model.startChat({
+          generationConfig,
+          history: message.map((msg) => ({
+            parts: [{ text: msg.text }],
+            role: msg.role,
+          })),
+        });
+        setChat(newChat);
+      } catch (err) {
+        setError("Failed to initialize chat. Please try again later");
+      }
+    };
+    initChat();
+  }, []);
+
+  const handleSendButton = async () => {
+    try {
+      const userMessage: Message = {
+        text: userInput,
+        role: "user",
+        timeStamp: new Date(),
+      };
+
+      setMessage((prevMessages) => [...prevMessages, userMessage]);
+      setUserInput("");
+
+      if (chat) {
+        const result = await chat.sendMessage(userInput);
+        const botMessage: Message = {
+          text: result.response.text(),
+          role: "bot",
+          timeStamp: new Date(),
+        };
+        setMessage((prevMessages) => [...prevMessages, botMessage]);
+      }
+    } catch (error) {
+      setError("Failed to send message. ");
+    }
+  };
+  const handleKeyPress = (e: any) => {
+    if (e.key == "Enter") {
+      e.preventDefault();
+      handleSendButton();
+    }
+  };
+  
+  const formatMessage=(msg:string)=>{
+    return md.render(msg)
+  }
+  return (
+    <div className="h-100vh bg-green-500">
+      <div className="flex justify-center">
+        <div className="flex flex-col w-[50vw] absolute bottom-0 mb-10  overflow-y-scroll max-h-[80vh] ">
+          {message.map((msg, index) => (
+            <div
+              key={index}
+              className={
+                msg.role === "bot"
+                  ? "flex justify-start w-[100%] chat chat-start"
+                  : "flex justify-end chat chat-end"
+              }
+            >
+              <div className="md:max-w-[80%] max-w-[90%] mb-5 overflow-wrap p-2 bg-slate-50 text-gray-950">
+                <p className="pb-2" dangerouslySetInnerHTML={{
+                    __html: formatMessage(msg.text),
+                  }}>
+                </p>
+                <p>
+                  {msg.role === "bot" ? "Interviewer" : "You"} -{" "}
+                  {msg.timeStamp.toLocaleTimeString()}
+                </p>
+              </div>
+            </div>
+          ))}
+          <div>
+            {error && <div className="text-red-500 text-sm mb-3">{error}</div>}
+          </div>
+          <div className="flex sticky bottom-0 items-center ">
+            <Textarea
+              value={userInput}
+              onKeyDown={handleKeyPress}
+              onChange={(e) => setUserInput(e.target.value)}
+              placeholder="Type your message..."
+              className="mr-2 max-h-56 rounded-full p-4 active:no-underline"/>
+
+            <Button onClick={handleSendButton}>Submit</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Gemini;

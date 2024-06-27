@@ -98,7 +98,7 @@ function page() {
         <div className="card glass ">
           <div className="card-body">
             <h1 className="text-3xl font-bold text-center  text-blue-600">
-              AnonyPoll
+            Interview.AI
             </h1>
             <h2 className="card-title text-center align-middle justify-center text-lg">
               Create Account

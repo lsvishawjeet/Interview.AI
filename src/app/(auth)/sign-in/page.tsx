@@ -73,7 +73,7 @@ export default function Component() {
         <div className="w-96 card bg-authBg bg-cover bg-center m-5">
       <div className="card glass md:w-96">
         <div className="card-body">
-        <h1 className="text-3xl font-bold text-center  text-blue-600">AnonyPoll</h1>
+        <h1 className="text-3xl font-bold text-center  text-blue-600">Interview.AI</h1>
         <h2 className="card-title text-center align-middle justify-center text-lg">Fill details to signIn</h2>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">

@@ -14,7 +14,7 @@ export default function EmailTemplate({ userName, otp }:EmailTemplateProps){
       </div>
       <div className="p-6">
         <p className="text-gray-700 text-lg">
-          Your OTP Code
+          Your OTP Code for Interview.AI 
         </p>
         <p className="text-indigo-600 text-4xl font-bold mt-4">
           {otp}
