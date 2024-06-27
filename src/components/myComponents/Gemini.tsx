@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { timeStamp } from "console";
 import { Textarea } from "@/components/ui/textarea";
 import markdownit from "markdown-it";
-import { UserDetailsForm } from "./userDetailsForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -45,7 +44,7 @@ function Gemini() {
   const [userInput, setUserInput] = useState("");
   const [chat, setChat] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isStarted, setIsStart] = useState(false)
+  const [isStarted, setIsStart] = useState(false);
   const md = markdownit();
   const takeMeDownRef = useRef<HTMLDivElement>(null);
 
@@ -139,11 +138,12 @@ function Gemini() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsStart(true)
+    setIsStart(true);
     try {
-
       if (chat) {
-        const result = await chat.sendMessage(`Education: ${values.education}, Experience: ${values.experience}, Company: ${values.company}, Role: ${values.role}, Expected Package: ${values.salary} inr`);
+        const result = await chat.sendMessage(
+          `Education: ${values.education}, Experience: ${values.experience}, Company: ${values.company}, Role: ${values.role}, Expected Package: ${values.salary} inr`
+        );
         const botMessage: Message = {
           text: result.response.text(),
           role: "bot",
@@ -158,7 +158,7 @@ function Gemini() {
   }
   return (
     <div className="h-100vh ">
-      <div className={isStarted?"hidden" :"h-[70vh] flex"}>
+      <div className={isStarted ? "hidden" : "h-[70vh] flex"}>
         <div className="w-[100vw] flex justify-center align-middle items-center overflow-scroll scrollbar-none">
           <div className="md:w-[30%] w-[90%] p-5 rounded-xl bg-slate-50">
             <p className="text-center font-semibold text-lg">Fill Details</p>
@@ -239,7 +239,7 @@ function Gemini() {
           </div>
         </div>
       </div>
-      <div className={isStarted?"flex justify-center" :"hidden"}>
+      <div className={isStarted ? "flex justify-center" : "hidden"}>
         <div className="flex flex-col md:w-[50vw] w-[90vw] absolute bottom-0 md:mb-10 mb-4 overflow-y-scroll max-h-[80vh] scrollbar-none ">
           {message.map((msg, index) => (
             <div
