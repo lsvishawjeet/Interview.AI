@@ -74,7 +74,8 @@ function page() {
         title: "Success",
         description: response.data.message,
       });
-      router.replace(`/verify/${username}`);
+      // router.replace(`/verify/${username}`);
+      router.replace(`/sign-in`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       const errorDescription =

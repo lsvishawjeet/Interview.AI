@@ -2,8 +2,8 @@ import mongoose, {Schema, Document} from "mongoose";
 import { Interface } from "readline";
 
 export interface Post extends Document{
-    templateType: string,
-    acceptVotes: boolean,
+    date: Date,
+    user: string,
     content: string;
     createdAt : Date;
     votesA : Number;
@@ -12,15 +12,14 @@ export interface Post extends Document{
 }
 
 const PostSchema:Schema<Post> = new Schema({
-    templateType:{
-        type: String
+    date:{
+        type: Date
     },
-    acceptVotes:{
-        type: Boolean,
-        required: [true, "Are you accepting votes or not"]
+    user:{
+        type: String,
     },
     content: {
-        type: String,
+        type: String, 
         required: true
     },
     createdAt:{
@@ -87,7 +86,7 @@ const UserSchema:Schema<User> = new Schema({
         type: Boolean,
         required: [true, "Verify Code is required"],
     },
-    post: [PostSchema]
+    post: []
 })
 
 const UserModel = (mongoose.models.User as mongoose.Model<User>) || mongoose.model<User>("User", UserSchema)

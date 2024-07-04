@@ -5,11 +5,15 @@ export async function POST(request:Request) {
     await dbConnect()
 
     try {
-        // const {username} = await request.json()
-        // const userData = await UserModel.findOne{
-        //     username,
-
-        // }
+        const {username, newMessage} = await request.json()
+        const user = await 
+        UserModel.findOne({
+            username,
+            isVerified: true
+        })
+        if(user){
+            user.post
+        }
     } catch (error) {
         
     }

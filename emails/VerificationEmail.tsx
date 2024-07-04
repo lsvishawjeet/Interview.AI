@@ -13,21 +13,30 @@ export default function EmailTemplate({ userName, otp }: EmailTemplateProps) {
           <h1 className="text-white text-2xl font-bold">Hello, {userName}!</h1>
         </div>
         <div className="p-6">
-          <p className="text-gray-700 text-lg">Your OTP Code for IntervueAi</p>
-          <p className="text-indigo-600 text-4xl font-bold mt-4">{otp}</p>
-          <a
+          <p className="text-gray-700 text-lg">Welcome to IntervueAi</p>
+          {/* <p className="text-indigo-600 text-4xl font-bold mt-4">{otp}</p> */}
+          {/* <a
             href={`https://www.intervue.com/verify/${userName}`}
             className="inline-block bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-500"
           >
             Verify OTP
-          </a>
-          <p className="text-gray-700 mt-4">
+          </a> */}
+          {/* <p className="text-gray-700 mt-4">
             Please use the above OTP to complete your verification. This OTP is
             valid for the next 10 minutes.
-          </p>
+          </p> */}
           <p className="text-gray-700 mt-4">
+            Thankyou for registering with us {":)"}
+          </p>
+          <p className="text-gray-700 mt-2">
+              This is initial phase of our IntervueAi. We are working on adding new features and improving user experience.
+          </p>
+          {/* <p className="text-gray-700 mt-4">
             If you did not request this code, please ignore this email or
             contact our support team.
+          </p> */}
+          <p className="text-gray-700 mt-4">
+            If you are not the one, who registered, please contact the team.
           </p>
           <div className="mt-6">
             <a
