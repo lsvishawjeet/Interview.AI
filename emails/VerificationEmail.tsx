@@ -19,6 +19,12 @@ export default function EmailTemplate({ userName, otp }:EmailTemplateProps){
         <p className="text-indigo-600 text-4xl font-bold mt-4">
           {otp}
         </p>
+        <p className="text-indigo-600 text-2xl mt-4">
+          Follow <a href={`https://www.intervue.com/verify/${userName}`} className="inline-block bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-500">
+            this
+          </a> link and Enter OTP there.
+        </p>
+        
         <p className="text-gray-700 mt-4">
           Please use the above OTP to complete your verification. This OTP is valid for the next 10 minutes.
         </p>
