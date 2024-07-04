@@ -13,7 +13,7 @@ export default function EmailTemplate({ userName, otp }: EmailTemplateProps) {
           <h1 className="text-white text-2xl font-bold">Hello, {userName}!</h1>
         </div>
         <div className="p-6">
-          <p className="text-gray-700 text-lg">Welcome to IntervueAi</p>
+          <p className="text-gray-700 text-xl">Welcome to IntervueAi</p>
           {/* <p className="text-indigo-600 text-4xl font-bold mt-4">{otp}</p> */}
           {/* <a
             href={`https://www.intervue.com/verify/${userName}`}

@@ -13,7 +13,7 @@ export async function sendVerificationEmail(
         const { data, error } = await resend.emails.send({
             from: 'intervueai@vsidhu.com',
             to: email,
-            subject: 'Verification Code',
+            subject: 'Welcome to IntervueAi',
             react: EmailTemplate({ userName: username, otp: verifyCode }),
           });
         
