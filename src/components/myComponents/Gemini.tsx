@@ -256,7 +256,7 @@ function Gemini() {
       </div>
       <div>
         <div className=" h-[100%] w-1/5">
-          <History />
+          {/* <History /> */}
         </div>
         <div className={isStarted ? "flex justify-center" : "hidden"}>
           <div className="flex flex-col md:w-[50vw] w-[90vw] absolute bottom-0 md:mb-10 mb-4 overflow-y-scroll max-h-[80vh] scrollbar-none ">
