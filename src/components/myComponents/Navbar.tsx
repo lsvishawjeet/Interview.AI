@@ -41,7 +41,7 @@ function Navbar() {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="/logos/intervuelogo1.png"
+                  src="/logos/logo.jpeg"
                 />
               </div>
             </div>
