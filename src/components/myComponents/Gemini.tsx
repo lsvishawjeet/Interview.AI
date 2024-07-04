@@ -22,6 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import History from "./History";
 
 const formSchema = z.object({
   education: z.string().min(2, {
@@ -45,6 +46,7 @@ function Gemini() {
   const [chat, setChat] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [isStarted, setIsStart] = useState(false);
+  const [gettingResponse, setGettingResponse] = useState(false);
   const md = markdownit();
   const takeMeDownRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +55,7 @@ function Gemini() {
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction:
-      "This model is for website that hepls users to prepare for their interviews. FIrst ask user about their qualifiaction, company, role he is preparing for and package he is expecting. Take proper interview of user as taken in companies. For instance, for software development role, there are different rounds of interview, aptitude, DSA, etc. So, take interview accordingly. Talk in professional way and expect only the professional output. First describe the user about the steps, and then start taking interview question by question. When user answered it then tell user how he could better handle it. For coding rounds, always ask user prefered programming language, expect code from user and then after getting code from user, you can ask for more optimal solutions and can also suggest users how to solve it with better approach. Also explain user how he can better handle that question. Ask question according to the package he is expecting, and what trend is going in industry. Avoid talking on personal issues of user if it is not relevent to job and role he selected. If user asks out of context queation, give him warning. At end of interview, evalute user and tell him weather he is ready to crack the interview of that company, if not then provide where he need to focus. If you feel, the response is generated using AI, then immidiatly warn candidate without asking next question ",
+      "This model is for website that helps users to prepare for their interviews. FIrst ask user about their qualifiaction, company, role he is preparing for and package he is expecting. Take proper interview of user as taken in companies. For instance, for software development role, there are different rounds of interview, aptitude, DSA, etc. So, take interview accordingly. Talk in professional way and expect only the professional output. First describe the user about the steps, and then start taking interview question by question. When user answered it then tell user how he could better handle it. For coding rounds, always ask user prefered programming language, expect code from user and then after getting code from user, you can ask for more optimal solutions and can also suggest users how to solve it with better approach. Also explain user how he can better handle that question. Ask question according to the package he is expecting, and what trend is going in industry. Avoid talking on personal issues of user if it is not relevent to job and role he selected. If user asks out of context queation, give him warning. At end of interview, evalute user and tell him weather he is ready to crack the interview of that company, if not then provide where he need to focus. If you feel, the response is generated using AI, then immidiatly warn candidate without asking next question ",
   });
 
   const generationConfig = {
@@ -90,6 +92,7 @@ function Gemini() {
   }, [message]);
 
   const handleSendButton = async () => {
+    setGettingResponse(true);
     try {
       const userMessage: Message = {
         text: userInput,
@@ -111,6 +114,8 @@ function Gemini() {
       }
     } catch (error) {
       setError("Failed to send message. ");
+    } finally {
+      setGettingResponse(false);
     }
   };
   const handleKeyPress = (e: any) => {
@@ -138,6 +143,7 @@ function Gemini() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setGettingResponse(true);
     setIsStart(true);
     try {
       if (chat) {
@@ -153,16 +159,23 @@ function Gemini() {
       }
     } catch (error) {
       setError("Failed to send message. ");
+    } finally {
+      setGettingResponse(false);
     }
     console.log(JSON.stringify(values));
   }
   return (
     <div className="h-100vh ">
-      <div className={isStarted ? "hidden" : "h-[90vh] flex"}>
+      <div className={!isStarted ? "hidden" : "h-[90vh] flex"}>
         <div className="w-[100vw] flex justify-center align-middle items-center overflow-scroll scrollbar-none">
           <div className="md:w-[30%] w-[90%] p-5 rounded-xl bg-slate-50">
-            <p className="text-center font-semibold text-2xl">Start Interview</p>
-            <p className="text-center text-sm mb-3 mt-2">Interview Preparation will start instanty after filling below details</p>
+            <p className="text-center font-semibold text-2xl">
+              Start Interview
+            </p>
+            <p className="text-center text-sm mb-3 mt-2">
+              Interview Preparation will start instanty after filling below
+              details
+            </p>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -233,52 +246,74 @@ function Gemini() {
                     </FormItem>
                   )}
                 />
-                <Button className="w-[100%]" type="submit">Start</Button>
+                <Button className="w-[100%]" type="submit">
+                  Start
+                </Button>
               </form>
             </Form>
           </div>
         </div>
       </div>
-      <div className={isStarted ? "flex justify-center" : "hidden"}>
-        <div className="flex flex-col md:w-[50vw] w-[90vw] absolute bottom-0 md:mb-10 mb-4 overflow-y-scroll max-h-[80vh] scrollbar-none ">
-          {message.map((msg, index) => (
-            <div
-              key={index}
-              className={
-                msg.role === "bot"
-                  ? "flex justify-start w-[100%] chat chat-start"
-                  : "flex justify-end chat chat-end"
-              }
-            >
-              <div className="md:max-w-[80%] max-w-[90%] mb-1 md:mb-5 overflow-wrap p-2 bg-slate-100 rounded-xl text-gray-950">
-                <p
-                  className="pb-2"
-                  dangerouslySetInnerHTML={{
-                    __html: formatMessage(msg.text),
-                  }}
-                ></p>
-                <p className="text-sm font-light">
-                  {msg.role === "bot" ? "Interviewer" : "You"} -{" "}
-                  {msg.timeStamp.toLocaleTimeString()}
-                </p>
+      <div>
+        <div className=" h-[100%] w-1/5">
+          {/* <History /> */}
+        </div>
+        <div className={!isStarted ? "flex justify-center" : "hidden"}>
+          <div className="flex flex-col md:w-[50vw] w-[90vw] absolute bottom-0 md:mb-10 mb-4 overflow-y-scroll max-h-[80vh] scrollbar-none ">
+            {message.map((msg, index) => (
+              <div
+                key={index}
+                className={
+                  msg.role === "bot"
+                    ? "flex justify-start w-[100%] chat chat-start"
+                    : "flex justify-end chat chat-end"
+                }
+              >
+                <div className="md:max-w-[80%] max-w-[90%] mb-1 md:mb-5 overflow-wrap p-2 bg-slate-100 rounded-xl text-gray-950">
+                  <p
+                    className="pb-2"
+                    dangerouslySetInnerHTML={{
+                      __html: formatMessage(msg.text),
+                    }}
+                  ></p>
+                  <p className="text-sm font-light">
+                    {msg.role === "bot" ? "Interviewer" : "You"} -{" "}
+                    {msg.timeStamp.toLocaleTimeString()}
+                  </p>
+                </div>
               </div>
+            ))}
+            {gettingResponse ? (
+              <>
+                <div className={"flex justify-start w-[100%] chat chat-start"}>
+                  <div className="md:max-w-[80%] max-w-[90%] mb-1 md:mb-5 overflow-wrap p-2 bg-slate-100 rounded-xl text-gray-950">
+                    <p className="text-sm font-light">
+                      <span className="loading loading-dots loading-md"></span>
+                    </p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+            <div>
+              {error && (
+                <div className="text-red-500 text-sm mb-3">{error}</div>
+              )}
             </div>
-          ))}
-          <div>
-            {error && <div className="text-red-500 text-sm mb-3">{error}</div>}
-          </div>
-          <div className="flex sticky bottom-0 items-center">
-            <Textarea
-              value={userInput}
-              onKeyDown={handleKeyPress}
-              onChange={(e) => setUserInput(e.target.value)}
-              placeholder="Type your message..."
-              className="mr-2 max-h-56 rounded-lg p-4 active:no-underline"
-            />
+            <div className="flex sticky bottom-0 items-center">
+              <Textarea
+                value={userInput}
+                onKeyDown={handleKeyPress}
+                onChange={(e) => setUserInput(e.target.value)}
+                placeholder="Type your message..."
+                className="mr-2 max-h-56 rounded-lg p-4 active:no-underline"
+              />
 
-            <Button onClick={handleSendButton}>Submit</Button>
+              <Button onClick={handleSendButton}>Submit</Button>
+            </div>
+            <div ref={takeMeDownRef}></div>
           </div>
-          <div ref={takeMeDownRef}></div>
         </div>
       </div>
     </div>
