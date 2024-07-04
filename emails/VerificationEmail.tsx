@@ -20,7 +20,7 @@ export default function EmailTemplate({ userName, otp }:EmailTemplateProps){
           {otp}
         </p>
         <p className="text-indigo-600 text-2xl mt-4">
-          Follow <a href={`https://www.intervue.com/verify/${userName}`} className="inline-block bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-500">
+          Follow <a href={`https://intervueai.vsidhu.com/verify/${userName}`} className="inline-block bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-500">
             this
           </a> link and Enter OTP there.
         </p>
