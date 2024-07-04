@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,8 @@ export default function RootLayout({
         <body className={`${inter.className}`}>
           {children}
           <Toaster />
-          <div className="fixed bottom-0 right-0 p-1"><span>Link</span></div>
+          <Analytics/>
+          {/* <div className="fixed bottom-0 right-0 p-1"><span>Link</span></div> */}
         </body>
       </AuthProvider>
     </html>
