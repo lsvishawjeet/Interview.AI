@@ -7,8 +7,8 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Intervue AI",
-  description: "Prepare for interviews with AI, prepare for your dream company, package and role free.",
+  title: "IntervueAI",
+  description: "Welcome to IntervueAI, the ultimate AI-powered platform designed to help you excel in your job interviews. Whether you are a recent graduate, a seasoned professional, or someone looking to pivot careers, our intelligent system is tailored to meet your unique needs.",
 };
 
 export default function RootLayout({
