@@ -74,8 +74,8 @@ export default function page() {
   }
   return (
     <div className="flex justify-center items-center h-[100vh] bg-authBg1 bg-center">
-      <div className="w-96 card bg-authBg bg-cover bg-center">
-    <div className="card glass w-96">
+      <div className="w-96 card bg-authBg bg-cover bg-center m-5">
+    <div className="card glass md:w-96">
       <div className="card-body">
       <h1 className="text-3xl font-bold text-center  text-blue-600">IntervueAI</h1>
       <h2 className="card-title text-center align-middle justify-center text-lg">Verify OTP</h2>
