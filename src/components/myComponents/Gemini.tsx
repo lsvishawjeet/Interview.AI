@@ -166,7 +166,7 @@ function Gemini() {
   }
   return (
     <div className="h-100vh ">
-      <div className={!isStarted ? "hidden" : "h-[90vh] flex"}>
+      <div className={isStarted ? "hidden" : "h-[90vh] flex"}>
         <div className="w-[100vw] flex justify-center align-middle items-center overflow-scroll scrollbar-none">
           <div className="md:w-[30%] w-[90%] p-5 rounded-xl bg-slate-50">
             <p className="text-center font-semibold text-2xl">
@@ -256,9 +256,9 @@ function Gemini() {
       </div>
       <div>
         <div className=" h-[100%] w-1/5">
-          {/* <History /> */}
+          <History />
         </div>
-        <div className={!isStarted ? "flex justify-center" : "hidden"}>
+        <div className={isStarted ? "flex justify-center" : "hidden"}>
           <div className="flex flex-col md:w-[50vw] w-[90vw] absolute bottom-0 md:mb-10 mb-4 overflow-y-scroll max-h-[80vh] scrollbar-none ">
             {message.map((msg, index) => (
               <div
